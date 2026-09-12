@@ -186,10 +186,14 @@ window.openSurah = async function(n){
     }
     arabic.ayahs.forEach((a,i)=>{
       const aNum = a.numberInSurah;
-      if(n!==1 && aNum===1) return;
       const tAyah = trans ? trans.ayahs[i] : null;
       const fAyah = tafsir ? tafsir.ayahs[i] : null;
       const rAyah = rec ? rec.ayahs[i] : null;
+      // الـ API يضيف البسملة في بداية نص الآية الأولى لكل سورة (عدا الفاتحة والتوبة) — نحذف البسملة ونبقي الآية
+      let aText = a.text;
+      if(n!==1 && n!==9 && aNum===1 && aText.indexOf("بِسْمِ اللَّهِ")===0){
+        aText = aText.replace("بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ","").trim();
+      }
       html += `
       <div class="ayah-block" id="ayah-${i}" data-global="${a.number}">
         <div class="ayah-head">
@@ -197,7 +201,7 @@ window.openSurah = async function(n){
           <button class="ayah-play-btn" onclick="playAyah(${i}, this)" title="استماع">▶</button>
           ${rAyah ? `<button class="ayah-play-btn" style="font-size:1.05rem" onclick="repeatAyah(${i})" title="تكرار">🔁</button>` : ""}
         </div>
-        <div class="ayah-arabic">${a.text}${n!==1 && n!==9 && aNum!==1 ? " ﴿"+aNum+"﴾" : ""}</div>
+        <div class="ayah-arabic">${aText}${n!==1 && n!==9 ? " ﴿"+aNum+"﴾" : ""}</div>
         ${tAyah ? `<div class="ayah-translation"><strong>[${trans.edition.englishName}]</strong><br>${tAyah.text}</div>` : ""}
         ${fAyah ? `<div class="ayah-tafsir"><strong>التفسير (${tafsir.edition.name}):</strong><br>${fAyah.text}</div>` : ""}
       </div>`;
