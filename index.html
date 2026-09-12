@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>نور القرآن | المصحف مكتوبًا ومسموعًا مع الترجمة والتفسير</title>
+<meta name="description" content="موقع لقراءة القرآن الكريم مكتوبًا وسماعه بأصوات كبار القرّاء، مع ترجمات معتمدة بعدة لغات وتفسير مترجم.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Amiri+Quran&family=Amiri:wght@400;700&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="bg-pattern"></div>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="#home" class="brand">
+      <span class="brand-mark">۞</span>
+      <span class="brand-text">نور القرآن</span>
+    </a>
+    <nav class="main-nav" id="mainNav">
+      <a href="#home" class="nav-link active">الرئيسية</a>
+      <a href="#quran" class="nav-link">المصحف الشريف</a>
+      <a href="#reciters" class="nav-link">القرّاء والمشايخ</a>
+      <a href="#about" class="nav-link">عن الموقع</a>
+    </nav>
+    <button class="nav-toggle" id="navToggle" aria-label="القائمة">☰</button>
+  </div>
+</header>
+
+<main>
+  <!-- ===== HERO / HOME ===== -->
+  <section id="home" class="hero section">
+    <div class="container hero-inner">
+      <p class="hero-bismillah">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>
+      <h1 class="hero-title">اقرأ واستمع إلى كتاب الله<br><span>بأجمل الأصوات وأوثق الترجمات</span></h1>
+      <p class="hero-sub">المصحف كاملًا بالرسم العثماني • ترجمات معتمدة بعدة لغات • تفسير مترجم • أصوات كبار قرّاء العالم الإسلامي</p>
+      <div class="hero-actions">
+        <a href="#quran" class="btn btn-primary">ابدأ القراءة</a>
+        <a href="#reciters" class="btn btn-ghost">استمع للقرّاء</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><span class="stat-num">114</span><span class="stat-label">سورة</span></div>
+        <div class="stat"><span class="stat-num">6236</span><span class="stat-label">آية</span></div>
+        <div class="stat"><span class="stat-num">30</span><span class="stat-label">جزءًا</span></div>
+        <div class="stat" id="statLangs"><span class="stat-num">…</span><span class="stat-label">لغة ترجمة</span></div>
+        <div class="stat" id="statReciters"><span class="stat-num">…</span><span class="stat-label">قارئًا</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== QURAN ===== -->
+  <section id="quran" class="section">
+    <div class="container">
+      <div class="section-head">
+        <h2>المصحف الشريف</h2>
+        <p>اختر سورة، ثم حدّد الترجمة والتفسير والقارئ من الأدوات أسفل القارئ</p>
+      </div>
+
+      <div class="toolbar">
+        <input type="search" id="surahSearch" class="search-input" placeholder="ابحث باسم السورة أو رقمها…">
+        <select id="reciterSelect" class="select" title="القارئ"></select>
+        <select id="translationSelect" class="select" title="الترجمة"></select>
+        <select id="tafsirSelect" class="select" title="التفسير"></select>
+      </div>
+
+      <div class="surah-grid" id="surahGrid"></div>
+    </div>
+  </section>
+
+  <!-- ===== READER OVERLAY ===== -->
+  <div class="reader-overlay" id="readerOverlay">
+    <div class="reader">
+      <div class="reader-header">
+        <button class="reader-close" id="readerClose">✕</button>
+        <div class="reader-title-wrap">
+          <h3 id="readerTitle"></h3>
+          <p id="readerMeta"></p>
+        </div>
+        <button class="btn-play-all" id="playAllBtn">▶ تشغيل السورة</button>
+      </div>
+      <div class="reader-body" id="readerBody"></div>
+      <div class="reader-footer">
+        <button class="btn btn-ghost" id="prevSurahBtn">‹ السورة السابقة</button>
+        <button class="btn btn-ghost" id="nextSurahBtn">السورة التالية ›</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== RECITERS ===== -->
+  <section id="reciters" class="section section-alt">
+    <div class="container">
+      <div class="section-head">
+        <h2>القرّاء والمشايخ</h2>
+        <p>أصوات كبار قرّاء العالم الإسلامي — اضغط على أي قارئ لتشغيل نموذج من تلاوته، واضغط «جعله قارئ القراءة» لاستماعك أثناء تصفح المصحف</p>
+      </div>
+      <div class="reciter-grid" id="reciterGrid"></div>
+      <p class="qiraat-note">ملاحظة: اختلاف القراءات (حفص، ورش، قالون، الدوري…) يظهر في أداء القرّاء المختلفين؛ فلكل قارئ أسلوبه وروايته التي يتلو بها كتاب الله.</p>
+    </div>
+  </section>
+
+  <!-- ===== ABOUT ===== -->
+  <section id="about" class="section">
+    <div class="container about-grid">
+      <div>
+        <h2>عن الموقع</h2>
+        <p>«نور القرآن» موقع لخدمة كتاب الله: قراءة المصحف بالرسم العثماني، واستماعه بأصوات كبار القرّاء آية آية أو سورة كاملة، مع ترجمات معتمدة وتفسير مترجم.</p>
+        <p>النص القرآني والترجمات والتفسير والتلاوات تُجلب مباشرة من <strong>Islamic Network API</strong> — مصدر موثوق مستخدم في مئات التطبيقات الإسلامية حول العالم.</p>
+      </div>
+      <div class="about-cards">
+        <div class="about-card"><span class="about-icon">📖</span><h4>رسم عثماني</h4><p>النص القرآني برواية حفص عن عاصم بالرسم العثماني.</p></div>
+        <div class="about-card"><span class="about-icon">🌍</span><h4>ترجمات معتمدة</h4><p>ترجمات مشهورة وموثوقة لكل لغة (مثل صحيح إنترناشونال للإنجليزية وهاميد الله للفرنسية).</p></div>
+        <div class="about-card"><span class="about-icon">🎧</span><h4>تلاوات متعددة</h4><p>عشرات القرّاء من مختلف أنحاء العالم الإسلامي.</p></div>
+        <div class="about-card"><span class="about-icon">💾</span><h4>بدون تسجيل</h4><p>مفضلتك (قارئك وترجمتك) تُحفظ في متصفحك تلقائيًا.</p></div>
+      </div>
+    </div>
+    <div class="container honesty-note">
+      <strong>تنبيه علمي:</strong> الترجمات المعروضة هي أشهر الترجمات المعتمدة لكل لغة، لكن لا توجد ترجمة بشرية «صحيحة ١٠٠٪» بمعنى المطابقة التامة لكلام الله؛ فالترجمة اجتهاد يقارب المعنى. والعبرة دائمًا بالنص العربي الأصلي، وقال تعالى: ﴿وَلَقَدْ جِئْنَاهُم بِكِتَابٍ فَصَّلْنَاهُ عَلَىٰ عِلْمٍ﴾.
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <p>«نور القرآن» — صدقة جارية، لا تنسونا من صالح الدعاء</p>
+    <p class="footer-src">البيانات: Islamic Network API • الصوتيات: CDN Islamic Network</p>
+  </div>
+</footer>
+
+<div class="audio-bar" id="audioBar">
+  <span id="audioBarText">…</span>
+  <audio id="mainAudio" controls></audio>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
