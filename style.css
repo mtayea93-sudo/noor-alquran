@@ -163,6 +163,8 @@ a{color:inherit;text-decoration:none}
 .reader-footer{display:flex;justify-content:space-between;padding:16px 0 40px;gap:12px;flex-wrap:wrap}
 
 /* ===== Reciters ===== */
+.reciter-search-wrap{max-width:440px;margin:0 auto 28px}
+.reciter-search-wrap .search-input{width:100%}
 .reciter-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px}
 .reciter-card{
   background:var(--card);border:1px solid var(--line);border-radius:var(--radius);

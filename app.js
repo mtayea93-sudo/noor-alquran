@@ -19,6 +19,26 @@ const AR_EDITION_NAMES = {
   "bn.bengali":"محيي الدين خان","es.cortes":"كورتيس","it.piccardo":"بيكاردو"
 };
 
+/* قائمة احتياطية بأشهر القرّاء — تُستخدم لو الـ API فشل أو اتمنع */
+const RECITERS_FALLBACK = [
+  {identifier:"ar.alafasy",name:"مشاري راشد العفاسي",englishName:"Mishary Rashid Alafasy",language:"ar"},
+  {identifier:"ar.abdulbasitmurattal",name:"عبد الباسط عبد الصمد",englishName:"Abdul Basit Abdul Samad",language:"ar"},
+  {identifier:"ar.minshawi",name:"محمد صديق المنشاوي",englishName:"Muhammad Siddiq El-Minshawi",language:"ar"},
+  {identifier:"ar.minshawimujawwad",name:"المنشاوي (رواية مجوَّدة)",englishName:"Minshawi (Mujawwad)",language:"ar"},
+  {identifier:"ar.husary",name:"محمود خليل الحصري",englishName:"Mahmoud Khalil Al-Husary",language:"ar"},
+  {identifier:"ar.hudhaify",name:"علي بن عبد الرحمن الحذيفي",englishName:"Ali Al-Hudhaify",language:"ar"},
+  {identifier:"ar.shaatree",name:"أبو بكر الشاطري",englishName:"Abu Bakr Al-Shatri",language:"ar"},
+  {identifier:"ar.mahermuaiqly",name:"ماهر المعيقلي",englishName:"Maher Al-Muaiqly",language:"ar"},
+  {identifier:"ar.abdullahbasfar",name:"عبد الله بصفر",englishName:"Abdullah Basfar",language:"ar"},
+  {identifier:"ar.muhammadayyoup",name:"محمد أيوب",englishName:"Muhammad Ayyub",language:"ar"},
+  {identifier:"ar.muhammadjibreel",name:"محمد جبريل",englishName:"Muhammad Jibreel",language:"ar"},
+  {identifier:"ar.ahmedajamy",name:"أحمد بن علي العجمي",englishName:"Ahmed Al-Ajamy",language:"ar"},
+  {identifier:"ar.aymanswoaid",name:"أيمن سويد",englishName:"Ayman Suwaid",language:"ar"},
+  {identifier:"ar.hanirifai",name:"هاني الرفاعي",englishName:"Hani Ar-Rifai",language:"ar"},
+  {identifier:"ar.ibrahimakhdar",name:"إبراهيم الأخضر",englishName:"Ibrahim Akhdar",language:"ar"},
+  {identifier:"ar.parhizgar",name:"شهريار برهيزكار",englishName:"Shahriar Parhizgar",language:"fa"}
+];
+
 const state = {
   surahs: [],
   reciters: [],
@@ -35,43 +55,61 @@ const state = {
 const $ = id => document.getElementById(id);
 const audioEl = $("mainAudio");
 
+async function fetchJSON(url){
+  const r = await fetch(url);
+  if(!r.ok) throw new Error("bad response");
+  return r.json();
+}
+
 /* ---------- init ---------- */
 (async function init(){
-  try{
-    const [surahsRes, transRes, tafsirRes, audioRes] = await Promise.all([
-      fetch(`${API}/surah`).then(r=>r.json()),
-      fetch(`${API}/edition/type/translation`).then(r=>r.json()),
-      fetch(`${API}/edition/type/tafsir`).then(r=>r.json()),
-      fetch(`${API}/edition/format/audio`).then(r=>r.json())
-    ]);
+  // كل طلب لوحده — لو واحد فشل الباقي يشتغل
+  const [surahsRes, transRes, tafsirRes, audioRes] = await Promise.allSettled([
+    fetchJSON(`${API}/surah`),
+    fetchJSON(`${API}/edition/type/translation`),
+    fetchJSON(`${API}/edition/type/tafsir`),
+    fetchJSON(`${API}/edition/format/audio`)
+  ]);
 
-    state.surahs = surahsRes.data;
+  // 1) السور
+  if(surahsRes.status === "fulfilled"){
+    state.surahs = surahsRes.value.data;
+    renderSurahGrid(state.surahs);
+  }else{
+    $("surahGrid").innerHTML = `<p style="text-align:center;color:#e5c878;padding:20px">تعذر تحميل السور — تحقق من اتصال الإنترنت وأعد تحميل الصفحة.</p>`;
+  }
 
-    state.translations = transRes.data
+  // 2) الترجمات
+  if(transRes.status === "fulfilled"){
+    state.translations = transRes.value.data
       .filter(e => e.format === "text")
       .sort((a,b)=>(LANG_NAMES[a.language]||a.language).localeCompare(LANG_NAMES[b.language]||b.language,"ar"));
-
-    state.tafsirs = tafsirRes.data.filter(e => e.format === "text");
-
-    state.reciters = audioRes.data
-      .filter(e => e.type === "audio")
-      .sort((a,b)=>a.englishName.localeCompare(b.englishName));
-
-    renderSurahGrid(state.surahs);
-    fillSelects();
-    renderReciters();
-    $("statLangs").querySelector(".stat-num").textContent = new Set(state.translations.map(t=>t.language)).size;
-    $("statReciters").querySelector(".stat-num").textContent = state.reciters.length;
-  }catch(err){
-    $("surahGrid").innerHTML = `<p style="text-align:center;color:#e5c878">تعذر الاتصال بالخادم، حاول تحديث الصفحة.</p>`;
   }
+
+  // 3) التفسير
+  if(tafsirRes.status === "fulfilled"){
+    state.tafsirs = tafsirRes.value.data.filter(e => e.format === "text");
+  }
+
+  // 4) القرّاء: API أولًا، ولو فشل/فاضي نستخدم القائمة الاحتياطية
+  if(audioRes.status === "fulfilled"){
+    const list = audioRes.value.data.filter(e => e.type === "audio" && e.format === "audio");
+    state.reciters = list.length ? list : RECITERS_FALLBACK;
+  }else{
+    state.reciters = RECITERS_FALLBACK;
+  }
+
+  fillSelects();
+  renderReciters(state.reciters);
+  try{ $("statLangs").querySelector(".stat-num").textContent = new Set(state.translations.map(t=>t.language)).size || "…"; }catch(e){}
+  try{ $("statReciters").querySelector(".stat-num").textContent = state.reciters.length; }catch(e){}
 })();
 
 /* ---------- selects ---------- */
 function fillSelects(){
   const recSel = $("reciterSelect");
   recSel.innerHTML = state.reciters.map(r=>
-    `<option value="${r.identifier}" ${r.identifier===state.reciter?"selected":""}>🎧 ${r.name} — ${r.englishName}</option>`
+    `<option value="${r.identifier}" ${r.identifier===state.reciter?"selected":""}>🎧 ${r.name}</option>`
   ).join("");
   recSel.onchange = () => { state.reciter = recSel.value; localStorage.setItem("nq_reciter", state.reciter); refreshReader(); updateReciterHighlight(); };
 
@@ -143,13 +181,12 @@ window.openSurah = async function(n){
     $("readerMeta").textContent = `${arabic.englishName} • ${arabic.numberOfAyahs} آية • ${arabic.revelationType==="Meccan"?"مكية":"مدنية"} • القارئ: ${rec.edition.name}`;
 
     let html = "";
-    const start = (n===1 || n===9) ? 0 : 1; // البسملة
     if(n!==1 && n!==9){
       html += `<div class="bismillah-line">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>`;
     }
     arabic.ayahs.forEach((a,i)=>{
       const aNum = a.numberInSurah;
-      if(n!==1 && aNum===1) return; // تجاوز البسملة المكررة داخل النص
+      if(n!==1 && aNum===1) return;
       const tAyah = trans ? trans.ayahs[i] : null;
       const fAyah = tafsir ? tafsir.ayahs[i] : null;
       const rAyah = rec ? rec.ayahs[i] : null;
@@ -164,12 +201,11 @@ window.openSurah = async function(n){
         ${tAyah ? `<div class="ayah-translation"><strong>[${trans.edition.englishName}]</strong><br>${tAyah.text}</div>` : ""}
         ${fAyah ? `<div class="ayah-tafsir"><strong>التفسير (${tafsir.edition.name}):</strong><br>${fAyah.text}</div>` : ""}
       </div>`;
-      void start;
     });
     $("readerBody").innerHTML = html;
     state._surahData = { arabic, trans, tafsir, rec };
   }catch(err){
-    $("readerBody").innerHTML = `<p style="text-align:center;padding:60px 0;color:#e5c878">حدث خطأ أثناء التحميل، حاول مرة أخرى.</p>`;
+    $("readerBody").innerHTML = `<p style="text-align:center;padding:60px 0;color:#e5c878">حدث خطأ أثناء التحميل، تحقق من الإنترنت وحاول مرة أخرى.</p>`;
   }
 };
 
@@ -218,7 +254,7 @@ function playNextAyah(){
   if(i >= arabic.ayahs.length){ stopPlayAll(); return; }
   document.querySelectorAll(".ayah-block").forEach(b=>b.classList.remove("playing"));
   const block = $("ayah-"+i);
-  if(!block){ playNextAyah(); return; } // بسملة
+  if(!block){ playNextAyah(); return; }
   block.classList.add("playing");
   block.scrollIntoView({behavior:"smooth", block:"center"});
   showAudioBar(`سورة ${arabic.name.replace("سُورَةُ ","")} — الآية ${arabic.ayahs[i].numberInSurah} • ${rec.edition.name}`);
@@ -245,8 +281,8 @@ $("prevSurahBtn").onclick = ()=>{ if(state.currentSurah>1) openSurah(state.curre
 document.addEventListener("keydown", e=>{ if(e.key==="Escape") $("readerClose").click(); });
 
 /* ---------- reciters section ---------- */
-function renderReciters(){
-  $("reciterGrid").innerHTML = state.reciters.map(r=>`
+function renderReciters(list){
+  $("reciterGrid").innerHTML = list.map(r=>`
     <div class="reciter-card ${r.identifier===state.reciter?"active-reciter":""}" id="reciter-${r.identifier.replace(/\./g,"_")}">
       <div class="reciter-avatar">${r.name.trim().charAt(0)}</div>
       <h4>${r.name}</h4>
@@ -257,6 +293,14 @@ function renderReciters(){
       </div>
     </div>`).join("");
 }
+/* بحث القرّاء */
+$("reciterSearch").addEventListener("input", e=>{
+  const q = e.target.value.trim();
+  const filtered = state.reciters.filter(r =>
+    !q || r.name.includes(q) || r.englishName.toLowerCase().includes(q.toLowerCase())
+  );
+  renderReciters(filtered);
+});
 window.previewReciter = function(id, name){
   showAudioBar(`استماع • ${name}`);
   audioEl.loop = false;
