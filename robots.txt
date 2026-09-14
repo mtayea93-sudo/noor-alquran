@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.noor-quran.mtayea.com/sitemap.xml
+Sitemap: https://noor-quran.mtayea.com/sitemap.xml
