@@ -36,8 +36,29 @@ const RECITERS_FALLBACK = [
   {identifier:"ar.aymanswoaid",name:"أيمن سويد",englishName:"Ayman Suwaid",language:"ar"},
   {identifier:"ar.hanirifai",name:"هاني الرفاعي",englishName:"Hani Ar-Rifai",language:"ar"},
   {identifier:"ar.ibrahimakhdar",name:"إبراهيم الأخضر",englishName:"Ibrahim Akhdar",language:"ar"},
-  {identifier:"ar.parhizgar",name:"شهريار برهيزكار",englishName:"Shahriar Parhizgar",language:"fa"}
+  {identifier:"ar.parhizgar",name:"شهريار برهيزكار",englishName:"Shahriar Parhizgar",language:"fa"},
+  {identifier:"ar.ahmednuaina",name:"أحمد نعينع",englishName:"Ahmed Nuaina",language:"ar"},
+  {identifier:"ar.sayed-saeed",name:"سيد سعيد",englishName:"Sayyid Saeed",language:"ar",kind:"surah"}
 ];
+
+/* دمج القائمة الثابتة مع اللي بيجي من الـ API (من غير تكرار) */
+function mergeReciters(base, apiList){
+  const seen = new Set(base.map(r=>r.identifier));
+  const extra = apiList.filter(r=>!seen.has(r.identifier));
+  return base.concat(extra).sort((a,b)=>a.name.localeCompare(b.name,"ar"));
+}
+
+/* جلب رابط الشيخ سيد سعيد من mp3quran.net (مصدر تاني — مش موجود على alquran.cloud) */
+function resolveSayedSaeed(){
+  fetch("https://www.mp3quran.net/api/v3/reciters?language=ar")
+    .then(r=>r.json())
+    .then(j=>{
+      const list = (j && j.reciters) || [];
+      const hit = list.find(x=>x.name && x.name.indexOf("سيد سعيد")!==-1);
+      if(hit && hit.server){ window.SAEED_SERVER = hit.server.replace(/^https?:\/\//,""); }
+    })
+    .catch(()=>{});
+}
 
 const state = {
   surahs: [],
@@ -51,6 +72,15 @@ const state = {
   playingAll: false,
   currentAyahIdx: -1
 };
+
+/* قرّاء يُعرضون عبر يوتيوب (تلاوات غير مقسّمة آيات على الـ API) */
+const YT_RECITERS = [
+  {identifier:"yt-sayed-saeed", name:"سيد سعيد", englishName:"Sayed Saeed", language:"ar",
+   youtube:"https://www.youtube.com/results?search_query=%D8%B3%D9%8A%D8%AF+%D8%B3%D8%B9%D9%8A%D8%AF+%D8%AA%D9%84%D8%A7%D9%88%D8%A7%D8%AA"}
+];
+
+const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+  (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 
 const $ = id => document.getElementById(id);
 const audioEl = $("mainAudio");
@@ -93,11 +123,12 @@ async function fetchJSON(url){
 
   // 4) القرّاء: API أولًا، ولو فشل/فاضي نستخدم القائمة الاحتياطية
   if(audioRes.status === "fulfilled"){
-    const list = audioRes.value.data.filter(e => e.type === "audio" && e.format === "audio");
-    state.reciters = list.length ? list : RECITERS_FALLBACK;
+    const api = audioRes.value.data.filter(e => e.type === "audio" && e.format === "audio");
+    state.reciters = mergeReciters(RECITERS_FALLBACK, api);
   }else{
-    state.reciters = RECITERS_FALLBACK;
+    state.reciters = RECITERS_FALLBACK.slice();
   }
+  resolveSayedSaeed();
 
   fillSelects();
   renderReciters(state.reciters);
@@ -166,7 +197,7 @@ window.openSurah = async function(n){
   const editions = ["quran-uthmani"];
   if(state.translation !== "none") editions.push(state.translation);
   if(state.tafsir !== "none") editions.push(state.tafsir);
-  editions.push(state.reciter);
+  if(state.reciter !== "ar.sayed-saeed") editions.push(state.reciter);
 
   try{
     const res = await fetch(`${API}/surah/${n}/editions/${editions.join(",")}`).then(r=>r.json());
@@ -174,7 +205,16 @@ window.openSurah = async function(n){
     const arabic = data.find(d=>d.edition.identifier==="quran-uthmani");
     const trans  = data.find(d=>d.edition.type==="translation");
     const tafsir = data.find(d=>d.edition.type==="tafsir");
-    const rec    = data.find(d=>d.edition.format==="audio");
+    let rec    = data.find(d=>d.edition.format==="audio");
+    // الشيخ سيد سعيد: تلاوات سور كاملة من mp3quran.net
+    if(state.reciter === "ar.sayed-saeed"){
+      const srv = window.SAEED_SERVER;
+      rec = {
+        surahBased: true,
+        edition: {identifier:"ar.sayed-saeed", name:"سيد سعيد", format:"audio", type:"audio"},
+        ayahs: arabic.ayahs.map(a=>({ number:a.number, audio: srv ? `https://${srv}/${String(a.surah).padStart(3,"0")}.mp3` : null }))
+      };
+    }
 
     const s = state.surahs.find(x=>x.number===n);
     $("readerTitle").textContent = arabic.name;
