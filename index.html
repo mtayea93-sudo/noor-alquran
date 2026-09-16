@@ -39,6 +39,7 @@
     <nav class="main-nav" id="mainNav">
       <a href="#home" class="nav-link active">الرئيسية</a>
       <a href="#quran" class="nav-link">المصحف الشريف</a>
+      <a href="#library" class="nav-link">📖 اقرأ</a>
       <a href="#reciters" class="nav-link">القرّاء والمشايخ</a>
       <a href="#about" class="nav-link">عن الموقع</a>
     </nav>
@@ -56,7 +57,9 @@
       <div class="hero-actions">
         <a href="#quran" class="btn btn-primary">ابدأ القراءة</a>
         <a href="#reciters" class="btn btn-ghost">استمع للقرّاء</a>
+        <a href="https://github.com/mtayea93-sudo/noor-alquran/releases/download/v1.0/app-release.apk" class="btn btn-ghost" download>⬇️ حمّل التطبيق (Android)</a>
       </div>
+      <p class="hero-apk-note">📱 لأجهزة أندرويد: حمّل ملف APK وافتحه، واسمح بالتثبيت من «مصادر غير معروفة» عند الطلب</p>
       <div class="hero-stats">
         <div class="stat"><span class="stat-num">114</span><span class="stat-label">سورة</span></div>
         <div class="stat"><span class="stat-num">6236</span><span class="stat-label">آية</span></div>
@@ -102,6 +105,35 @@
         <button class="btn btn-ghost" id="prevSurahBtn">‹ السورة السابقة</button>
         <button class="btn btn-ghost" id="nextSurahBtn">السورة التالية ›</button>
       </div>
+    </div>
+  </div>
+
+  <!-- ===== LIBRARY (اقرأ) ===== -->
+  <section id="library" class="section section-alt">
+    <div class="container">
+      <div class="section-head">
+        <h2>📖 مكتبة القراءة</h2>
+        <p>المصحف الشريف بترقيم صفحات المصحف المطبوع (604 صفحات) وترجمات كاملة ككتب — تُقرأ بدون إنترنت بعد أول تحميل، ويُحفظ موضعك تلقائيًا</p>
+      </div>
+      <div class="library-grid" id="libraryGrid"></div>
+    </div>
+  </section>
+
+  <!-- ===== BOOK READER OVERLAY ===== -->
+  <div class="book-overlay" id="bookOverlay">
+    <div class="book-topbar">
+      <button class="reader-close" onclick="closeBook()">✕</button>
+      <select id="bookSel" class="select" onchange="switchBook(this)"></select>
+      <select id="bookSurahSel" class="select" onchange="goSurah(this)"><option value="">انتقال إلى سورة…</option></select>
+      <span class="book-pos" id="bookPageNum"></span>
+    </div>
+    <div class="book-stage" id="bookStage">
+      <div class="book-paper" id="bookPage"></div>
+    </div>
+    <div class="book-nav">
+      <button class="btn btn-ghost" id="bookPrev" onclick="bookPrev()">‹ السابقة</button>
+      <input type="number" id="bookJump" class="book-jump" min="1" onchange="bookJumpGo(this)" title="رقم الصفحة">
+      <button class="btn btn-ghost" id="bookNext" onclick="bookNext()">التالية ›</button>
     </div>
   </div>
 
@@ -159,5 +191,6 @@ if ("serviceWorker" in navigator) {
 }
 </script>
 <script src="app.js"></script>
+<script src="reader.js"></script>
 </body>
 </html>

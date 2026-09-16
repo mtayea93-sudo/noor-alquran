@@ -52,7 +52,8 @@ a{color:inherit;text-decoration:none}
 .hero-title{font-size:2.7rem;font-weight:800;line-height:1.5;margin-bottom:14px}
 .hero-title span{color:var(--gold-2)}
 .hero-sub{color:var(--muted);font-size:1.1rem;max-width:640px;margin:0 auto 28px}
-.hero-actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:44px}
+.hero-actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:16px}
+.hero-apk-note{color:var(--muted);font-size:.88rem;margin-bottom:34px;text-align:center}
 .btn{
   display:inline-block;padding:12px 30px;border-radius:12px;font-weight:700;cursor:pointer;
   border:1px solid transparent;transition:.2s;font-size:1rem;font-family:inherit;
@@ -231,4 +232,40 @@ a{color:inherit;text-decoration:none}
   .nav-toggle{display:block}
   .ayah-arabic{font-size:1.5rem}
   .toolbar .select{max-width:100%;width:100%}
+}
+
+/* ===== Library (مكتبة القراءة) ===== */
+.library-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:20px;max-width:900px;margin:0 auto}
+.book-cover{aspect-ratio:3/4;border-radius:12px;border:1px solid var(--line);cursor:pointer;position:relative;overflow:hidden;transition:.25s;box-shadow:0 8px 22px rgba(0,0,0,.4)}
+.book-cover:hover{transform:translateY(-6px) scale(1.02);box-shadow:0 14px 30px rgba(0,0,0,.55)}
+.book-cover-inner{position:absolute;inset:14px 14px 46px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:10px;border:1px solid rgba(229,200,120,.4);border-radius:8px;padding:10px}
+.book-cover-name{font-size:1.15rem;font-weight:800;color:var(--gold-2)}
+.book-cover-author{font-size:.75rem;color:var(--muted)}
+.book-cover-brand{position:absolute;bottom:12px;left:0;right:0;text-align:center;font-size:.72rem;color:var(--gold);letter-spacing:1px}
+
+/* ===== Book Reader ===== */
+.book-overlay{position:fixed;inset:0;z-index:110;display:none;background:#080d0b;flex-direction:column}
+.book-overlay.open{display:flex}
+.book-topbar{display:flex;align-items:center;gap:10px;padding:10px 16px;background:var(--card);border-bottom:1px solid var(--line);flex-wrap:wrap}
+.book-topbar .select{max-width:200px}
+.book-pos{margin-inline-start:auto;color:var(--gold-2);font-weight:700;font-size:.95rem}
+.book-stage{flex:1;overflow-y:auto;padding:22px 12px;display:flex;justify-content:center}
+.book-paper{background:#f6f0dc;color:#222;width:100%;max-width:760px;min-height:80vh;border-radius:6px;padding:46px 42px;box-shadow:0 10px 40px rgba(0,0,0,.6), inset 0 0 60px rgba(120,90,20,.08);line-height:2.3}
+.book-paper[dir="rtl"]{font-family:'Amiri Quran','Amiri',serif;text-align:justify;font-size:1.65rem}
+.book-paper[dir="ltr"]{text-align:left;font-size:1.08rem;line-height:1.9}
+.book-loading{text-align:center;padding:80px 20px;color:#555}
+.bsurah{text-align:center;margin:14px 0 10px}
+.bsurah-frame{display:inline-block;border:2px solid #8a6d2f;border-radius:10px;padding:4px 26px;color:#6b541c;font-weight:700;font-size:1.15rem;background:linear-gradient(180deg,#fbf6e3,#efe4bd)}
+.bbismillah{text-align:center;color:#6b541c;font-size:1.5rem;margin:6px 0 14px}
+.bayah-num{display:inline-grid;place-items:center;min-width:1.7em;height:1.7em;border:1.5px solid #8a6d2f;border-radius:50%;font-size:.55em;color:#6b541c;margin:0 4px;font-family:'Tajawal',sans-serif;vertical-align:middle}
+.btrans-surah{text-align:center;font-weight:800;color:#6b541c;border-bottom:2px solid #d8c68a;padding-bottom:6px;margin:18px 0 12px;font-size:1.05rem}
+.btrans-ayah{display:flex;gap:10px;margin-bottom:12px;align-items:flex-start}
+.btrans-ayah .bayah-num{flex-shrink:0;margin-top:3px;border-color:#b09a55;color:#8a6d2f}
+.btrans-ayah p{margin:0;flex:1}
+.book-nav{display:flex;align-items:center;justify-content:center;gap:14px;padding:12px;background:var(--card);border-top:1px solid var(--line)}
+.book-jump{width:90px;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px;color:var(--text);text-align:center;font-family:inherit}
+.book-nav .btn:disabled{opacity:.35;cursor:default}
+@media(max-width:640px){
+  .book-paper{padding:26px 18px;min-height:70vh}
+  .book-paper[dir="rtl"]{font-size:1.35rem;line-height:2.1}
 }
