@@ -58,10 +58,9 @@
         <a href="#quran" class="btn btn-primary">ابدأ القراءة</a>
         <a href="#library" class="btn btn-ghost">📖 اقرأ المصحف</a>
         <a href="#reciters" class="btn btn-ghost">استمع للقرّاء</a>
-        <a href="https://github.com/mtayea93-sudo/noor-alquran/releases/download/v1.0/app-release.apk" class="btn btn-ghost" download>⬇️ حمّل التطبيق (Android)</a>
-        <button class="btn btn-ghost" onclick="document.getElementById('iosModal').classList.add('open')">🍎 تثبيت على آيفون</button>
+        <button class="btn btn-primary" style="background:linear-gradient(135deg,#2e7d5b,#1d4a37);color:#fff" onclick="document.getElementById('iosModal').classList.add('open')">📲 ثبّت التطبيق على موبايلك</button>
       </div>
-      <p class="hero-apk-note">📖 «اقرأ المصحف» يعمل حتى بدون إنترنت بعد أول تحميل • الآيفون يُثبَّت كتطبيق من Safari • أندرويد: APK مباشر</p>
+      <p class="hero-apk-note">🤖 أندرويد: تثبيت من Chrome • 🍎 آيفون: تثبيت من Safari — يعمل كتطبيق مستقل والقراءة بدون إنترنت</p>
       <div class="hero-stats">
         <div class="stat"><span class="stat-num">114</span><span class="stat-label">سورة</span></div>
         <div class="stat"><span class="stat-num">6236</span><span class="stat-label">آية</span></div>
@@ -179,13 +178,24 @@
 <div class="ios-modal" id="iosModal">
   <div class="ios-card">
     <button class="reader-close" onclick="document.getElementById('iosModal').classList.remove('open')">✕</button>
-    <h3>🍎 تثبيت نور القرآن على الآيفون</h3>
+    <h3>📲 تثبيت نور القرآن كتطبيق على موبايلك</h3>
+
+    <h4 class="install-sub">🤖 أندرويد (كروم Chrome)</h4>
+    <ol>
+      <li>افتح الموقع من متصفح <b>Chrome</b></li>
+      <li>اضغط النقط <b>⋮</b> (فوق يمين أو تحت)</li>
+      <li>اختر <b>«تثبيت التطبيق»</b> أو <b>«إضافة إلى الشاشة الرئيسية»</b></li>
+      <li>اضغط <b>تثبيت</b> — خلاص! 🎉</li>
+    </ol>
+
+    <h4 class="install-sub">🍎 آيفون (سفاري Safari)</h4>
     <ol>
       <li>افتح الموقع من متصفح <b>Safari</b>:<br><code>noor-quran.mtayea.com</code></li>
       <li>اضغط زرار <b>المشاركة</b> □↑ (الشريط السفلي)</li>
       <li>اختر <b>«إضافة إلى الشاشة الرئيسية»</b> ثم <b>إضافة</b></li>
     </ol>
-    <p class="ios-tip">هتلاقي أيقونة 🌙 نور القرآن في شاشتك الرئيسية — بيفتح كتطبيق مستقل، والقراءة تشتغل بدون إنترنت.</p>
+
+    <p class="ios-tip">🌙 هتلاقي أيقونة نور القرآن في شاشتك الرئيسية — بتفتح كتطبيق مستقل (شاشة كاملة بدون متصفح)، والقراءة + الآيات المسموعة تشتغل بدون إنترنت.</p>
   </div>
 </div>
 
@@ -208,5 +218,5 @@ if ("serviceWorker" in navigator) {
 </script>
 <script src="app.js"></script>
 <script src="reader.js"></script>
-<script src="mtayea-signature.js"></script></body>
+</body>
 </html>
