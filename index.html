@@ -59,6 +59,7 @@
         <a href="#quran" class="btn btn-primary">ابدأ القراءة</a>
         <a href="#library" class="btn btn-ghost">📖 اقرأ المصحف</a>
         <a href="#reciters" class="btn btn-ghost">استمع للقرّاء</a>
+        <a href="#worship" class="btn btn-ghost">🕌 العبادة</a>
         <button class="btn btn-primary" style="background:linear-gradient(135deg,#2e7d5b,#1d4a37);color:#fff" onclick="document.getElementById('iosModal').classList.add('open')">📲 ثبّت التطبيق على موبايلك</button>
       </div>
       <p class="hero-apk-note">🤖 أندرويد: تثبيت من Chrome • 🍎 آيفون: تثبيت من Safari — يعمل كتطبيق مستقل والقراءة بدون إنترنت</p>
@@ -154,7 +155,9 @@
           <h3>📿 المسبحة الإلكترونية</h3>
           <select id="tasDhikrSel" class="select" onchange="tasSelect(this)"></select>
           <div class="tas-dhikr" id="tasDhikr">سُبْحَانَ الله</div>
-          <div class="tas-count" id="tasCount">0</div>
+          <button class="tas-circle" onclick="tasTap()" aria-label="اضغط للتسبيح">
+            <span class="tas-count" id="tasCount">0</span>
+          </button>
           <div class="tas-bar-wrap"><div class="tas-bar" id="tasBar"></div></div>
           <div class="tas-meta">الهدف: <span id="tasTarget">33</span> • المجموع الكلي: <span id="tasTotal">0</span></div>
           <div class="tas-controls">
@@ -162,7 +165,6 @@
             <button class="reciter-btn" onclick="tasResetCycle()">تصفير الدورة</button>
             <button class="reciter-btn" onclick="tasResetAll()">تصفير الكل</button>
           </div>
-          <button class="tas-tap" onclick="tasTap()">اضغط للتسبيح</button>
           <div class="tas-flash" id="tasFlash"></div>
         </div>
 
@@ -274,6 +276,5 @@ if ("serviceWorker" in navigator) {
 <script src="app.js"></script>
 <script src="reader.js"></script>
 <script src="tools.js"></script>
-<script src="mtayea-signature.js"></script>
 </body>
 </html>

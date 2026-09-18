@@ -282,15 +282,15 @@ a{color:inherit;text-decoration:none}
 .tool-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:20px;display:flex;flex-direction:column;gap:12px;position:relative}
 .tool-card h3{color:var(--gold-2);font-size:1.2rem}
 .tool-card .select{width:100%;max-width:none}
-.tas-dhikr{text-align:center;font-family:'Amiri Quran','Amiri',serif;font-size:1.7rem;color:var(--gold-2);min-height:2.4rem}
-.tas-count{text-align:center;font-size:3.4rem;font-weight:800;color:var(--text);line-height:1}
+.tas-dhikr{text-align:center;font-family:'Amiri',serif;font-size:1.6rem;color:var(--gold-2);line-height:1.6;margin:2px 0;overflow:hidden}
+.tas-count{text-align:center;font-size:3.2rem;font-weight:800;color:#fff;line-height:1;text-shadow:0 2px 8px rgba(0,0,0,.4)}
 .tas-bar-wrap{height:8px;background:var(--bg);border-radius:10px;overflow:hidden}
 .tas-bar{height:100%;width:0;background:linear-gradient(90deg,var(--green),var(--gold));transition:width .15s}
 .tas-meta{text-align:center;color:var(--muted);font-size:.9rem}
 .tas-controls{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
 .tas-controls .select{width:auto;flex:1;min-width:120px}
-.tas-tap{border:none;border-radius:16px;padding:22px;font-size:1.25rem;font-weight:800;font-family:inherit;color:#fff;background:linear-gradient(135deg,var(--green),#1d4a37);cursor:pointer;transition:.15s;user-select:none;-webkit-user-select:none;touch-action:manipulation}
-.tas-tap:active{transform:scale(.97);filter:brightness(1.15)}
+.tas-circle{width:190px;height:190px;border-radius:50%;margin:6px auto 2px;display:grid;place-items:center;border:4px solid var(--gold);cursor:pointer;user-select:none;-webkit-user-select:none;touch-action:manipulation;background:radial-gradient(circle at 32% 28%,#3aa273 0%,#1d6b4a 55%,#12422e 100%);box-shadow:0 12px 28px rgba(0,0,0,.5),inset 0 4px 18px rgba(255,255,255,.18),inset 0 -8px 18px rgba(0,0,0,.35);transition:transform .08s,filter .08s;font-family:inherit}
+.tas-circle:active{transform:scale(.93);filter:brightness(1.2)}
 .tas-flash{position:absolute;left:0;right:0;top:44%;text-align:center;font-size:1.3rem;font-weight:800;color:var(--gold-2);opacity:0;transition:.3s;pointer-events:none}
 .tas-flash.show{opacity:1}
 .pray-status{color:var(--muted);font-size:.9rem}
@@ -311,3 +311,7 @@ a{color:inherit;text-decoration:none}
 .radio-state{color:var(--muted);font-size:.8rem;white-space:nowrap}
 .radio-item.active .radio-state{color:var(--gold-2)}
 @media(max-width:420px){.pray-grid{grid-template-columns:repeat(2,1fr)}}
+
+/* failed radio station */
+.radio-item.failed{opacity:.55}
+.radio-item.failed .radio-state{color:#c96a5f}

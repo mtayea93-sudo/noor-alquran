@@ -154,22 +154,24 @@
 
   /* ================= 3) إذاعات القرآن الكريم ================= */
   const STATIONS = [
-    { n: "📻 إذاعة القرآن — تلاوات منوعة", u: "https://backup.qurango.com/radio/quran" },
+    { n: "📻 إذاعة القرآن الكريم من القاهرة", u: "http://www.quran-radio.com/stream" },
+    { n: "📻 إذاعة نداء الإسلام (السعودية)", u: "https://live.mp3quran.net/abdullah_awad_al_juhani" },
     { n: "🎙️ مشاري راشد العفاسي", u: "https://backup.qurango.com/radio/alafasy" },
     { n: "🎙️ عبد الباسط عبد الصمد (مجوَّد)", u: "https://backup.qurango.com/radio/abdulbasit" },
+    { n: "🎙️ تلاوات منوعة (Qurango)", u: "https://backup.qurango.com/radio/quran" },
     { n: "🎙️ سعود الشريم", u: "https://backup.qurango.com/radio/saud_alshuraim" },
     { n: "🎙️ ناصر القطامي", u: "https://backup.qurango.com/radio/nasser_alqatami" },
     { n: "🎙️ إدريس أبكر", u: "https://backup.qurango.com/radio/idrees_abkar" },
-    { n: "🎙️ عبد الله عواد الجهني", u: "https://backup.qurango.com/radio/abdullah_aljuhani" },
   ];
+  let failedStations = {};
   let curStation = -1;
   const raudio = () => $("radioAudio");
 
   function radioRender() {
     $("radioList").innerHTML = STATIONS.map((s, i) => `
-      <button class="radio-item ${i === curStation ? "active" : ""}" onclick="radioPlay(${i})">
+      <button class="radio-item ${i === curStation ? "active" : ""} ${failedStations[i] ? "failed" : ""}" onclick="radioPlay(${i})">
         <span>${s.n}</span>
-        <span class="radio-state">${i === curStation ? "⏸ إيقاف" : "▶ تشغيل"}</span>
+        <span class="radio-state">${i === curStation ? "⏸ إيقاف" : failedStations[i] ? "⚠️ غير متاح" : "▶ تشغيل"}</span>
       </button>`).join("");
   }
 
@@ -182,14 +184,21 @@
     a.play().then(() => {
       $("radioStatus").textContent = "🔴 بث مباشر: " + STATIONS[i].n.replace(/^\S+\s/, "");
     }).catch(() => {
-      $("radioStatus").textContent = "⚠️ تعذر تشغيل البث — تحقق من الإنترنت";
+      failedStations[i] = true;
+      $("radioStatus").textContent = "⚠️ تعذر تشغيل هذه الإذاعة — جرّب واحدة أخرى";
       curStation = -1;
+      radioRender();
     });
     radioRender();
   };
 
   raudio().addEventListener("error", () => {
-    if (curStation >= 0) { $("radioStatus").textContent = "⚠️ انقطع البث — جرّب إذاعة أخرى"; curStation = -1; radioRender(); }
+    if (curStation >= 0) {
+      failedStations[curStation] = true;
+      $("radioStatus").textContent = "⚠️ انقطع البث أو الإذاعة غير متاحة حاليًا — جرّب أخرى";
+      curStation = -1;
+      radioRender();
+    }
   });
 
   /* ================= تشغيل ================= */
