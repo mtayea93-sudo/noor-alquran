@@ -41,6 +41,7 @@
       <a href="#quran" class="nav-link">المصحف الشريف</a>
       <a href="#library" class="nav-link">📖 اقرأ</a>
       <a href="#reciters" class="nav-link">القرّاء والمشايخ</a>
+      <a href="#worship" class="nav-link">🕌 العبادة</a>
       <a href="#about" class="nav-link">عن الموقع</a>
     </nav>
     <button class="nav-toggle" id="navToggle" aria-label="القائمة">☰</button>
@@ -139,6 +140,60 @@
     </div>
   </div>
 
+  <!-- ===== WORSHIP TOOLS ===== -->
+  <section id="worship" class="section">
+    <div class="container">
+      <div class="section-head">
+        <h2>🕌 أدوات العبادة</h2>
+        <p>مسبحة إلكترونية تعمل بدون إنترنت • مواقيت الصلاة لموقعك • بثوث إذاعات القرآن الكريم المباشرة</p>
+      </div>
+      <div class="worship-grid">
+
+        <!-- المسبحة -->
+        <div class="tool-card">
+          <h3>📿 المسبحة الإلكترونية</h3>
+          <select id="tasDhikrSel" class="select" onchange="tasSelect(this)"></select>
+          <div class="tas-dhikr" id="tasDhikr">سُبْحَانَ الله</div>
+          <div class="tas-count" id="tasCount">0</div>
+          <div class="tas-bar-wrap"><div class="tas-bar" id="tasBar"></div></div>
+          <div class="tas-meta">الهدف: <span id="tasTarget">33</span> • المجموع الكلي: <span id="tasTotal">0</span></div>
+          <div class="tas-controls">
+            <select id="tasTargetSel" class="select" onchange="tasTargetFn(this)"></select>
+            <button class="reciter-btn" onclick="tasResetCycle()">تصفير الدورة</button>
+            <button class="reciter-btn" onclick="tasResetAll()">تصفير الكل</button>
+          </div>
+          <button class="tas-tap" onclick="tasTap()">اضغط للتسبيح</button>
+          <div class="tas-flash" id="tasFlash"></div>
+        </div>
+
+        <!-- مواقيت الصلاة -->
+        <div class="tool-card">
+          <h3>🕌 مواقيت الصلاة</h3>
+          <p class="pray-status" id="prayStatus">اضغط لتحديد موقعك وعرض المواقيت</p>
+          <div class="pray-actions">
+            <button class="reciter-btn primary" onclick="prayLocate()">📍 تحديد موقعي</button>
+            <input type="text" id="prayCity" class="search-input" placeholder="أو اكتب: المدينة، الدولة">
+            <button class="reciter-btn" onclick="prayCityGo()">عرض</button>
+          </div>
+          <div class="pray-grid" id="prayGrid"></div>
+          <div class="pray-next">
+            <span id="prayNextLabel">—</span>
+            <span class="pray-countdown" id="prayCountdown">--:--:--</span>
+          </div>
+        </div>
+
+        <!-- إذاعة القرآن -->
+        <div class="tool-card">
+          <h3>📻 إذاعة القرآن الكريم</h3>
+          <p class="pray-status" id="radioStatus">اختر إذاعة للاستماع المباشر</p>
+          <div class="radio-list" id="radioList"></div>
+          <audio id="radioAudio" preload="none"></audio>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
   <!-- ===== RECITERS ===== -->
   <section id="reciters" class="section section-alt">
     <div class="container">
@@ -218,6 +273,6 @@ if ("serviceWorker" in navigator) {
 </script>
 <script src="app.js"></script>
 <script src="reader.js"></script>
-<script src="mtayea-signature.js"></script>
+<script src="tools.js"></script>
 </body>
 </html>
