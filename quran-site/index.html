@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>نور القرآن | المصحف مكتوبًا ومسموعًا مع الترجمة والتفسير</title>
+<meta name="description" content="موقع لقراءة القرآن الكريم مكتوبًا وسماعه بأصوات كبار القرّاء، مع ترجمات معتمدة بعدة لغات وتفسير مترجم.">
+<meta name="keywords" content="القرآن الكريم, المصحف, قراءة القرآن, تلاوات, قرّاء, تفسير, ترجمة القرآن, مشاري العفاسي, عبد الباسط, الحصري">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.noor-quran.mtayea.com/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="نور القرآن | المصحف مكتوبًا ومسموعًا مع الترجمة والتفسير">
+<meta property="og:description" content="اقرأ واستمع إلى كتاب الله بالرسم العثماني، بأصوات كبار القرّاء، مع ترجمات معتمدة بعدة لغات وتفسير مترجم.">
+<meta property="og:url" content="https://www.noor-quran.mtayea.com/">
+<meta property="og:locale" content="ar_AR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="نور القرآن | المصحف مكتوبًا ومسموعًا">
+<meta name="twitter:description" content="اقرأ واستمع إلى كتاب الله بأجمل الأصوات وأوثق الترجمات">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Amiri+Quran&family=Amiri:wght@400;700&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0c1210">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="bg-pattern"></div>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="#home" class="brand">
+      <span class="brand-mark">۞</span>
+      <span class="brand-text">نور القرآن</span>
+    </a>
+    <nav class="main-nav" id="mainNav">
+      <a href="#home" class="nav-link active">الرئيسية</a>
+      <a href="#quran" class="nav-link">المصحف الشريف</a>
+      <a href="#library" class="nav-link">📖 اقرأ</a>
+      <a href="#reciters" class="nav-link">القرّاء والمشايخ</a>
+      <a href="#worship" class="nav-link">🕌 العبادة</a>
+      <a href="#about" class="nav-link">عن الموقع</a>
+    </nav>
+    <button class="nav-toggle" id="navToggle" aria-label="القائمة">☰</button>
+  </div>
+</header>
+
+<main>
+  <!-- ===== HERO / HOME ===== -->
+  <section id="home" class="hero section">
+    <div class="container hero-inner">
+      <p class="hero-bismillah">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>
+      <h1 class="hero-title">اقرأ واستمع إلى كتاب الله<br><span>بأجمل الأصوات وأوثق الترجمات</span></h1>
+      <p class="hero-sub">المصحف كاملًا بالرسم العثماني • ترجمات معتمدة بعدة لغات • تفسير مترجم • أصوات كبار قرّاء العالم الإسلامي</p>
+      <div class="hero-actions">
+        <a href="#quran" class="btn btn-primary">ابدأ القراءة</a>
+        <a href="#library" class="btn btn-ghost">📖 اقرأ المصحف</a>
+        <a href="#reciters" class="btn btn-ghost">استمع للقرّاء</a>
+        <button class="btn btn-primary" style="background:linear-gradient(135deg,#2e7d5b,#1d4a37);color:#fff" onclick="document.getElementById('iosModal').classList.add('open')">📲 ثبّت التطبيق على موبايلك</button>
+      </div>
+      <p class="hero-apk-note">🤖 أندرويد: تثبيت من Chrome • 🍎 آيفون: تثبيت من Safari — يعمل كتطبيق مستقل والقراءة بدون إنترنت</p>
+      <div class="hero-stats">
+        <div class="stat"><span class="stat-num">114</span><span class="stat-label">سورة</span></div>
+        <div class="stat"><span class="stat-num">6236</span><span class="stat-label">آية</span></div>
+        <div class="stat"><span class="stat-num">30</span><span class="stat-label">جزءًا</span></div>
+        <div class="stat" id="statLangs"><span class="stat-num">…</span><span class="stat-label">لغة ترجمة</span></div>
+        <div class="stat" id="statReciters"><span class="stat-num">…</span><span class="stat-label">قارئًا</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== QURAN ===== -->
+  <section id="quran" class="section">
+    <div class="container">
+      <div class="section-head">
+        <h2>المصحف الشريف</h2>
+        <p>اختر سورة، ثم حدّد الترجمة والتفسير والقارئ من الأدوات أسفل القارئ</p>
+      </div>
+
+      <div class="toolbar">
+        <input type="search" id="surahSearch" class="search-input" placeholder="ابحث باسم السورة أو رقمها…">
+        <select id="reciterSelect" class="select" title="القارئ"></select>
+        <select id="translationSelect" class="select" title="الترجمة"></select>
+        <select id="tafsirSelect" class="select" title="التفسير"></select>
+      </div>
+
+      <div class="surah-grid" id="surahGrid"></div>
+    </div>
+  </section>
+
+  <!-- ===== READER OVERLAY ===== -->
+  <div class="reader-overlay" id="readerOverlay">
+    <div class="reader">
+      <div class="reader-header">
+        <button class="reader-close" id="readerClose">✕</button>
+        <div class="reader-title-wrap">
+          <h3 id="readerTitle"></h3>
+          <p id="readerMeta"></p>
+        </div>
+        <button class="btn-play-all" id="playAllBtn">▶ تشغيل السورة</button>
+        <button class="btn-play-all dl-btn" id="dlSurahBtn" style="display:none">⬇️ تحميل السورة للاستماع بدون نت</button>
+      </div>
+      <div class="reader-body" id="readerBody"></div>
+      <div class="reader-footer">
+        <button class="btn btn-ghost" id="prevSurahBtn">‹ السورة السابقة</button>
+        <button class="btn btn-ghost" id="nextSurahBtn">السورة التالية ›</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== LIBRARY (اقرأ) ===== -->
+  <section id="library" class="section section-alt">
+    <div class="container">
+      <div class="section-head">
+        <h2>📖 مكتبة القراءة</h2>
+        <p>المصحف الشريف بترقيم صفحات المصحف المطبوع (604 صفحات) وترجمات كاملة ككتب — تُقرأ بدون إنترنت بعد أول تحميل، ويُحفظ موضعك تلقائيًا</p>
+      </div>
+      <div class="library-grid" id="libraryGrid"></div>
+    </div>
+  </section>
+
+  <!-- ===== BOOK READER OVERLAY ===== -->
+  <div class="book-overlay" id="bookOverlay">
+    <div class="book-topbar">
+      <button class="reader-close" onclick="closeBook()">✕</button>
+      <select id="bookSel" class="select" onchange="switchBook(this)"></select>
+      <select id="bookSurahSel" class="select" onchange="goSurah(this)"><option value="">انتقال إلى سورة…</option></select>
+      <span class="book-pos" id="bookPageNum"></span>
+    </div>
+    <div class="book-stage" id="bookStage">
+      <div class="book-paper" id="bookPage"></div>
+    </div>
+    <div class="book-nav">
+      <button class="btn btn-ghost" id="bookPrev" onclick="bookPrev()">‹ السابقة</button>
+      <input type="number" id="bookJump" class="book-jump" min="1" onchange="bookJumpGo(this)" title="رقم الصفحة">
+      <button class="btn btn-ghost" id="bookNext" onclick="bookNext()">التالية ›</button>
+    </div>
+  </div>
+
+  <!-- ===== WORSHIP TOOLS ===== -->
+  <section id="worship" class="section">
+    <div class="container">
+      <div class="section-head">
+        <h2>🕌 أدوات العبادة</h2>
+        <p>مسبحة إلكترونية تعمل بدون إنترنت • مواقيت الصلاة لموقعك • بثوث إذاعات القرآن الكريم المباشرة</p>
+      </div>
+      <div class="worship-grid">
+
+        <!-- المسبحة -->
+        <div class="tool-card">
+          <h3>📿 المسبحة الإلكترونية</h3>
+          <select id="tasDhikrSel" class="select" onchange="tasSelect(this)"></select>
+          <div class="tas-dhikr" id="tasDhikr">سُبْحَانَ الله</div>
+          <div class="tas-count" id="tasCount">0</div>
+          <div class="tas-bar-wrap"><div class="tas-bar" id="tasBar"></div></div>
+          <div class="tas-meta">الهدف: <span id="tasTarget">33</span> • المجموع الكلي: <span id="tasTotal">0</span></div>
+          <div class="tas-controls">
+            <select id="tasTargetSel" class="select" onchange="tasTargetFn(this)"></select>
+            <button class="reciter-btn" onclick="tasResetCycle()">تصفير الدورة</button>
+            <button class="reciter-btn" onclick="tasResetAll()">تصفير الكل</button>
+          </div>
+          <button class="tas-tap" onclick="tasTap()">اضغط للتسبيح</button>
+          <div class="tas-flash" id="tasFlash"></div>
+        </div>
+
+        <!-- مواقيت الصلاة -->
+        <div class="tool-card">
+          <h3>🕌 مواقيت الصلاة</h3>
+          <p class="pray-status" id="prayStatus">اضغط لتحديد موقعك وعرض المواقيت</p>
+          <div class="pray-actions">
+            <button class="reciter-btn primary" onclick="prayLocate()">📍 تحديد موقعي</button>
+            <input type="text" id="prayCity" class="search-input" placeholder="أو اكتب: المدينة، الدولة">
+            <button class="reciter-btn" onclick="prayCityGo()">عرض</button>
+          </div>
+          <div class="pray-grid" id="prayGrid"></div>
+          <div class="pray-next">
+            <span id="prayNextLabel">—</span>
+            <span class="pray-countdown" id="prayCountdown">--:--:--</span>
+          </div>
+        </div>
+
+        <!-- إذاعة القرآن -->
+        <div class="tool-card">
+          <h3>📻 إذاعة القرآن الكريم</h3>
+          <p class="pray-status" id="radioStatus">اختر إذاعة للاستماع المباشر</p>
+          <div class="radio-list" id="radioList"></div>
+          <audio id="radioAudio" preload="none"></audio>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== RECITERS ===== -->
+  <section id="reciters" class="section section-alt">
+    <div class="container">
+      <div class="section-head">
+        <h2>القرّاء والمشايخ</h2>
+        <p>أصوات كبار قرّاء العالم الإسلامي — اضغط على أي قارئ لتشغيل نموذج من تلاوته، واضغط «جعله قارئ القراءة» لاستماعك أثناء تصفح المصحف</p>
+      </div>
+      <div class="reciter-search-wrap">
+        <input type="search" id="reciterSearch" class="search-input" placeholder="🔍 ابحث عن قارئ بالاسم…">
+      </div>
+      <div class="reciter-grid" id="reciterGrid"></div>
+      <p class="qiraat-note">ملاحظة: اختلاف القراءات (حفص، ورش، قالون، الدوري…) يظهر في أداء القرّاء المختلفين؛ فلكل قارئ أسلوبه وروايته التي يتلو بها كتاب الله.</p>
+    </div>
+  </section>
+
+  <!-- ===== ABOUT ===== -->
+  <section id="about" class="section">
+    <div class="container about-grid">
+      <div>
+        <h2>عن الموقع</h2>
+        <p>«نور القرآن» موقع لخدمة كتاب الله: قراءة المصحف بالرسم العثماني، واستماعه بأصوات كبار القرّاء آية آية أو سورة كاملة، مع ترجمات معتمدة وتفسير مترجم.</p>
+        <p>النص القرآني والترجمات والتفسير والتلاوات تُجلب مباشرة من <strong>Islamic Network API</strong> — مصدر موثوق مستخدم في مئات التطبيقات الإسلامية حول العالم.</p>
+      </div>
+      <div class="about-cards">
+        <div class="about-card"><span class="about-icon">📖</span><h4>رسم عثماني</h4><p>النص القرآني برواية حفص عن عاصم بالرسم العثماني.</p></div>
+        <div class="about-card"><span class="about-icon">🌍</span><h4>ترجمات معتمدة</h4><p>ترجمات مشهورة وموثوقة لكل لغة (مثل صحيح إنترناشونال للإنجليزية وهاميد الله للفرنسية).</p></div>
+        <div class="about-card"><span class="about-icon">🎧</span><h4>تلاوات متعددة</h4><p>عشرات القرّاء من مختلف أنحاء العالم الإسلامي.</p></div>
+        <div class="about-card"><span class="about-icon">💾</span><h4>بدون تسجيل</h4><p>مفضلتك (قارئك وترجمتك) تُحفظ في متصفحك تلقائيًا.</p></div>
+      </div>
+    </div>
+    <div class="container honesty-note">
+      <strong>تنبيه علمي:</strong> الترجمات المعروضة هي أشهر الترجمات المعتمدة لكل لغة، لكن لا توجد ترجمة بشرية «صحيحة ١٠٠٪» بمعنى المطابقة التامة لكلام الله؛ فالترجمة اجتهاد يقارب المعنى. والعبرة دائمًا بالنص العربي الأصلي، وقال تعالى: ﴿وَلَقَدْ جِئْنَاهُم بِكِتَابٍ فَصَّلْنَاهُ عَلَىٰ عِلْمٍ﴾.
+    </div>
+  </section>
+</main>
+
+<div class="ios-modal" id="iosModal">
+  <div class="ios-card">
+    <button class="reader-close" onclick="document.getElementById('iosModal').classList.remove('open')">✕</button>
+    <h3>📲 تثبيت نور القرآن كتطبيق على موبايلك</h3>
+
+    <h4 class="install-sub">🤖 أندرويد (كروم Chrome)</h4>
+    <ol>
+      <li>افتح الموقع من متصفح <b>Chrome</b></li>
+      <li>اضغط النقط <b>⋮</b> (فوق يمين أو تحت)</li>
+      <li>اختر <b>«تثبيت التطبيق»</b> أو <b>«إضافة إلى الشاشة الرئيسية»</b></li>
+      <li>اضغط <b>تثبيت</b> — خلاص! 🎉</li>
+    </ol>
+
+    <h4 class="install-sub">🍎 آيفون (سفاري Safari)</h4>
+    <ol>
+      <li>افتح الموقع من متصفح <b>Safari</b>:<br><code>noor-quran.mtayea.com</code></li>
+      <li>اضغط زرار <b>المشاركة</b> □↑ (الشريط السفلي)</li>
+      <li>اختر <b>«إضافة إلى الشاشة الرئيسية»</b> ثم <b>إضافة</b></li>
+    </ol>
+
+    <p class="ios-tip">🌙 هتلاقي أيقونة نور القرآن في شاشتك الرئيسية — بتفتح كتطبيق مستقل (شاشة كاملة بدون متصفح)، والقراءة + الآيات المسموعة تشتغل بدون إنترنت.</p>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <p>«نور القرآن» — صدقة جارية، لا تنسونا من صالح الدعاء</p>
+    <p class="footer-src">إعداد وتطوير: <strong style="color:#e5c878">محمد طايع صالح</strong> — Mohamed Tayea Saleh • البيانات: Islamic Network API</p>
+  </div>
+</footer>
+
+<div class="audio-bar" id="audioBar">
+  <span id="audioBarText">…</span>
+  <audio id="mainAudio" controls></audio>
+</div>
+
+<script>
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("sw.js").catch(() => {});
+}
+</script>
+<script src="app.js"></script>
+<script src="reader.js"></script>
+<script src="tools.js"></script>
+</body>
+</html>
