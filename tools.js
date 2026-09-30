@@ -154,7 +154,7 @@
 
   /* ================= 3) إذاعات القرآن الكريم ================= */
   const STATIONS = [
-    { n: "📻 إذاعة القرآن الكريم من القاهرة", u: "https://stream.radiojar.com/0tpy1h0kxtzuv" },
+    { n: "📻 إذاعة القرآن الكريم من القاهرة", u: "https://stream.radiojar.com/8s5u5tpdtwzuv" },
     { n: "🎙️ مشاري راشد العفاسي", u: "https://backup.qurango.net/radio/mishary_alafasi" },
     { n: "🎙️ عبد الباسط عبد الصمد (مجوَّد)", u: "https://backup.qurango.net/radio/abdulbasit_abdulsamad_mojawwad" },
     { n: "🎙️ عبد الرحمن السديس", u: "https://backup.qurango.net/radio/abdulrahman_alsudaes" },
