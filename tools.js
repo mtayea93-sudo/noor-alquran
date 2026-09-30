@@ -154,7 +154,7 @@
 
   /* ================= 3) إذاعات القرآن الكريم ================= */
   const STATIONS = [
-    { n: "📻 إذاعة القرآن الكريم من القاهرة", u: "http://www.quran-radio.com/stream" },
+    { n: "📻 إذاعة القرآن الكريم من القاهرة", u: "https://stream.radiojar.com/0tpy1h0kxtzuv" },
     { n: "📻 إذاعة نداء الإسلام (السعودية)", u: "https://live.mp3quran.net/abdullah_awad_al_juhani" },
     { n: "🎙️ مشاري راشد العفاسي", u: "https://backup.qurango.com/radio/alafasy" },
     { n: "🎙️ عبد الباسط عبد الصمد (مجوَّد)", u: "https://backup.qurango.com/radio/abdulbasit" },
