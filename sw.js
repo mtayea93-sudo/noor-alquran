@@ -1,5 +1,5 @@
 /* Service Worker — نور القرآن */
-const CACHE = "noor-quran-v3";
+const CACHE = "noor-quran-v4";
 const SHELL = ["./", "index.html", "style.css", "app.js", "manifest.json", "icon-192.png", "icon-512.png"];
 
 self.addEventListener("install", e => {
@@ -61,7 +61,7 @@ self.addEventListener("fetch", e => {
     e.respondWith(
       caches.match(e.request).then(hit => hit || fetch(e.request).then(res => {
         const copy = res.clone();
-        caches.open("noor-quran-v3").then(c => c.put(e.request, copy));
+        caches.open("noor-quran-v4").then(c => c.put(e.request, copy));
         return res;
       }))
     );
