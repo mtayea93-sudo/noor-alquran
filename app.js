@@ -345,12 +345,46 @@ $("reciterSearch").addEventListener("input", e=>{
   );
   renderReciters(filtered);
 });
+/* مصدر بديل لكل قارئ من mp3quran.net (لو CDN التاني وقع أو التسجيل ناقص) */
+const MP3Q_FALLBACK = {
+  "ar.alafasy": "https://server8.mp3quran.net/afs/",
+  "ar.abdulbasitmurattal": "https://server7.mp3quran.net/basit/",
+  "ar.minshawi": "https://server10.mp3quran.net/minsh/",
+  "ar.minshawimujawwad": "https://server10.mp3quran.net/minsh/Almusshaf-Al-Mojawwad/",
+  "ar.husary": "https://server13.mp3quran.net/husr/",
+  "ar.hudhaify": "https://server9.mp3quran.net/hthfi/",
+  "ar.shaatree": "https://server11.mp3quran.net/shatri/",
+  "ar.mahermuaiqly": "https://server12.mp3quran.net/maher/",
+  "ar.abdullahbasfar": "https://server6.mp3quran.net/bsfr/",
+  "ar.muhammadayyoup": "https://server16.mp3quran.net/ayyoub2/Rewayat-Hafs-A-n-Assem/",
+  "ar.muhammadjibreel": "https://server8.mp3quran.net/jbrl/",
+  "ar.ahmedajamy": "https://server10.mp3quran.net/ajm/",
+  "ar.aymanswoaid": "https://server16.mp3quran.net/a_swaiyd/Rewayat-Hafs-A-n-Assem/",
+  "ar.hanirifai": "https://server8.mp3quran.net/hani/",
+  "ar.ibrahimakhdar": "https://server6.mp3quran.net/akdr/",
+  "ar.ahmednuaina": "https://server11.mp3quran.net/ahmad_nu/"
+};
 window.previewReciter = function(id, name){
   showAudioBar(`استماع • ${name}`);
   audioEl.loop = false;
+  audioEl.dataset.preview = id;
+  audioEl.dataset.stage = "0";
+  audioEl.onerror = ()=>{
+    if (audioEl.dataset.preview !== id) return; // مش معاينة حالية — سيبها للقارئ
+    if (audioEl.dataset.stage === "0" && MP3Q_FALLBACK[id]) {
+      audioEl.dataset.stage = "1";
+      audioEl.src = MP3Q_FALLBACK[id] + "001.mp3";
+      audioEl.play().catch(()=>{});
+      showAudioBar(`استماع • ${name} (مصدر بديل)`);
+    } else {
+      showAudioBar("التسجيل مش متاح حاليًا — جرّب قارئ تاني");
+      setTimeout(hideAudioBar, 4000);
+      delete audioEl.dataset.preview;
+    }
+  };
   audioEl.src = `${CDN}/audio/128/${id}/1.mp3`;
-  audioEl.play();
-  audioEl.onended = ()=> hideAudioBar();
+  audioEl.play().catch(()=>{});
+  audioEl.onended = ()=>{ hideAudioBar(); delete audioEl.dataset.preview; };
 };
 window.setReciter = function(id){
   state.reciter = id;
