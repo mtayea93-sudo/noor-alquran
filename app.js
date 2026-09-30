@@ -86,7 +86,14 @@ const $ = id => document.getElementById(id);
 const audioEl = $("mainAudio");
 
 async function fetchJSON(url){
-  const r = await fetch(url);
+  const ctl = new AbortController();
+  const t = setTimeout(()=>ctl.abort(), 8000); /* مهلة 8 ثواني — لو الـ API علق نستخدم الاحتياطي */
+  let r;
+  try {
+    r = await fetch(url, {signal: ctl.signal});
+  } finally {
+    clearTimeout(t);
+  }
   if(!r.ok) throw new Error("bad response");
   return r.json();
 }
