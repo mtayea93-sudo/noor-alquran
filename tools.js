@@ -155,14 +155,14 @@
   /* ================= 3) إذاعات القرآن الكريم ================= */
   const STATIONS = [
     { n: "📻 إذاعة القرآن الكريم من القاهرة", u: "https://stream.radiojar.com/0tpy1h0kxtzuv" },
-    { n: "📻 إذاعة نداء الإسلام (السعودية)", u: "https://live.mp3quran.net/abdullah_awad_al_juhani" },
-    { n: "🎙️ مشاري راشد العفاسي", u: "https://backup.qurango.com/radio/alafasy" },
-    { n: "🎙️ عبد الباسط عبد الصمد (مجوَّد)", u: "https://backup.qurango.com/radio/abdulbasit" },
-    { n: "🎙️ تلاوات منوعة (Qurango)", u: "https://backup.qurango.com/radio/quran" },
-    { n: "🎙️ سعود الشريم", u: "https://backup.qurango.com/radio/saud_alshuraim" },
-    { n: "🎙️ ناصر القطامي", u: "https://backup.qurango.com/radio/nasser_alqatami" },
-    { n: "🎙️ إدريس أبكر", u: "https://backup.qurango.com/radio/idrees_abkar" },
-  ];
+    { n: "🎙️ مشاري راشد العفاسي", u: "https://backup.qurango.net/radio/mishary_alafasi" },
+    { n: "🎙️ عبد الباسط عبد الصمد (مجوَّد)", u: "https://backup.qurango.net/radio/abdulbasit_abdulsamad_mojawwad" },
+    { n: "🎙️ عبد الرحمن السديس", u: "https://backup.qurango.net/radio/abdulrahman_alsudaes" },
+    { n: "🎙️ سعود الشريم", u: "https://backup.qurango.net/radio/saud_alshuraim" },
+    { n: "🎙️ ناصر القطامي", u: "https://backup.qurango.net/radio/nasser_alqatami" },
+    { n: "🎙️ إدريس أبكر", u: "https://backup.qurango.net/radio/idrees_abkr" },
+    { n: "🎙️ تلاوات منوعة — مختلف القرّاء", u: "https://backup.qurango.net/radio/mix" },
+];
   let failedStations = {};
   let curStation = -1;
   const raudio = () => $("radioAudio");
