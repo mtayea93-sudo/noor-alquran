@@ -1,5 +1,5 @@
 /* Service Worker — نور القرآن (تحديث أولًا + أوفلاين) */
-const CACHE = "noor-quran-v8";
+const CACHE = "noor-quran-v7";
 const SHELL = ["./", "index.html", "style.css", "app.js", "tools.js", "manifest.json", "icon-192.png", "icon-512.png"];
 
 self.addEventListener("install", e => {
