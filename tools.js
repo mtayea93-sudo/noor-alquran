@@ -154,14 +154,14 @@
 
   /* ================= 3) إذاعات القرآن الكريم ================= */
   const STATIONS = [
-    { n: "📻 إذاعة القرآن الكريم من القاهرة", u: "https://stream.radiojar.com/8s5u5tpdtwzuv" },
-    { n: "🎙️ مشاري راشد العفاسي", u: "https://backup.qurango.net/radio/mishary_alafasi" },
-    { n: "🎙️ عبد الباسط عبد الصمد (مجوَّد)", u: "https://backup.qurango.net/radio/abdulbasit_abdulsamad_mojawwad" },
-    { n: "🎙️ عبد الرحمن السديس", u: "https://backup.qurango.net/radio/abdulrahman_alsudaes" },
-    { n: "🎙️ سعود الشريم", u: "https://backup.qurango.net/radio/saud_alshuraim" },
-    { n: "🎙️ ناصر القطامي", u: "https://backup.qurango.net/radio/nasser_alqatami" },
-    { n: "🎙️ إدريس أبكر", u: "https://backup.qurango.net/radio/idrees_abkr" },
-    { n: "🎙️ تلاوات منوعة — مختلف القرّاء", u: "https://backup.qurango.net/radio/mix" },
+    { n: "📻 إذاعة القرآن الكريم — ترتيل", u: "https://qurango.net/radio/tarateel", b: "https://backup.qurango.net/radio/tarateel" },
+    { n: "🎙️ مشاري راشد العفاسي", u: "https://qurango.net/radio/mishary_alafasi", b: "https://backup.qurango.net/radio/mishary_alafasi" },
+    { n: "🎙️ عبد الباسط عبد الصمد (مجوَّد)", u: "https://qurango.net/radio/abdulbasit_abdulsamad_mojawwad", b: "https://backup.qurango.net/radio/abdulbasit_abdulsamad_mojawwad" },
+    { n: "🎙️ عبد الرحمن السديس", u: "https://qurango.net/radio/abdulrahman_alsudaes", b: "https://backup.qurango.net/radio/abdulrahman_alsudaes" },
+    { n: "🎙️ سعود الشريم", u: "https://qurango.net/radio/saud_alshuraim", b: "https://backup.qurango.net/radio/saud_alshuraim" },
+    { n: "🎙️ ناصر القطامي", u: "https://qurango.net/radio/nasser_alqatami", b: "https://backup.qurango.net/radio/nasser_alqatami" },
+    { n: "🎙️ إدريس أبكر", u: "https://qurango.net/radio/idrees_abkr", b: "https://backup.qurango.net/radio/idrees_abkr" },
+    { n: "🎙️ تلاوات منوعة — مختلف القرّاء", u: "https://qurango.net/radio/mix", b: "https://backup.qurango.net/radio/mix" },
 ];
   let failedStations = {};
   let curStation = -1;
@@ -180,6 +180,7 @@
     if (curStation === i) { a.pause(); a.removeAttribute("src"); curStation = -1; $("radioStatus").textContent = "⏸ توقف البث"; radioRender(); return; }
     curStation = i;
     $("radioStatus").textContent = "⏳ جاري الاتصال بالبث…";
+    a.dataset.fb = "0";
     a.src = STATIONS[i].u;
     a.play().then(() => {
       $("radioStatus").textContent = "🔴 بث مباشر: " + STATIONS[i].n.replace(/^\S+\s/, "");
@@ -194,6 +195,15 @@
 
   raudio().addEventListener("error", () => {
     if (curStation >= 0) {
+      const a = raudio();
+      const st = STATIONS[curStation];
+      if (a.dataset.fb === "0" && st.b) {
+        a.dataset.fb = "1";
+        $("radioStatus").textContent = "⏳ جاري تجربة سيرفر احتياطي…";
+        a.src = st.b;
+        a.play().catch(() => {});
+        return;
+      }
       failedStations[curStation] = true;
       $("radioStatus").textContent = "⚠️ انقطع البث أو الإذاعة غير متاحة حاليًا — جرّب أخرى";
       curStation = -1;
