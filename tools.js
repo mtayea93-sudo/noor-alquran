@@ -154,7 +154,7 @@
 
   /* ================= 3) إذاعات القرآن الكريم ================= */
   const STATIONS = [
-    { n: "📻 إذاعة القرآن الكريم — ترتيل", u: "https://qurango.net/radio/tarateel", b: "https://backup.qurango.net/radio/tarateel" },
+    { n: "📻 إذاعة القرآن الكريم من القاهرة — بث مباشر", u: "https://radio.xecod.com/station/quran-cairo", b: "https://qurango.net/radio/tarateel" },
     { n: "🎙️ مشاري راشد العفاسي", u: "https://qurango.net/radio/mishary_alafasi", b: "https://backup.qurango.net/radio/mishary_alafasi" },
     { n: "🎙️ عبد الباسط عبد الصمد (مجوَّد)", u: "https://qurango.net/radio/abdulbasit_abdulsamad_mojawwad", b: "https://backup.qurango.net/radio/abdulbasit_abdulsamad_mojawwad" },
     { n: "🎙️ عبد الرحمن السديس", u: "https://qurango.net/radio/abdulrahman_alsudaes", b: "https://backup.qurango.net/radio/abdulrahman_alsudaes" },
